@@ -52,7 +52,28 @@ export default function App() {
 react document의 title을 몇개의 hooks과 함께 바꾸는것
 
 ## 2. useInput
-input 역할을 하는 훅
+input 역할을 하는 훅 (state나 effect처럼 만들어져 있는 훅이라기 보다는 useState를 이용해서 만들어낸 함수 로직 인것같다. **맞았다..**)
+
+```js
+const useInput = (intialValue) => {
+  const [value, setValue] = useState(intialValue);
+  const onChange = (event) => {
+    console.log(event.target);
+  };
+  return { value, onChange };
+};
+
+export default function App() {
+  //초기값
+  const name = useInput("gil");
+  return (
+    <div className="App">
+      <input type="text" placeholder="Name" {...name} />
+    </div>
+  );
+}
+
+```
 
 ## 3. usePageLeave
 유저가 페이지를 벗어나는 시점을 찾고 함수를 실행하는 훅
@@ -80,6 +101,18 @@ notification API를 사용시 유저에게 알림을 보내주는 hook
 
 ## 11. useTabs
 tab 기능을 쉽게 구현 해주는 hook
+useState와 오브젝트 데이터를 이용해서 탭기능을 구현한다.
+```js
+const useTabs = (initalIndex, allTabs) => {
+    //전체 오브젝트가 들어오지 않았을 경우 처리(undefined 처리?)
+    if (!allTabs || !Array.isArray(allTabs)) return;
+    const [currentIndex, setCurrentIndex] = useState(initalIndex);
+    return {
+        currentItem: allTabs[currentIndex],
+        onChangeItem: setCurrentIndex
+    };
+};
+```
 
 ## 12. usePreventLeave
 변경사항을 저장하지 않고 페이지(브라우저)를 벗어나길 원할때 확인(confirm) 하는 hook
