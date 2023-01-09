@@ -48,8 +48,53 @@ export default function App() {
 }
 ```
 
+# useEffect (2023.1.9)
+useEffect는 첫번째 인수로 함수를 받을 수 있고, 두번째 인수로 deps를 받을수 있다.
+여기서 deps는 전달된 값이 상태가 변할때 마다 첫번째 인수로 전달받은 값을 실행 시킨다.
+아무것도 전달 받지 않으면 최초 렌더시에만 실행된다.
+
+```js
+export default function App() {
+    const sayHello = () => console.log("hi!");
+    const [number, setNumber] = useState(0);
+    //첫번째인수로 console을 전달
+    //두번째 인수로 useState의 number를 전달 받았다.
+    //따라서 버튼을 누를때마다 setNumber가 실행되므로(number의 state가 변함)
+    //sayHello(console)함수가 실행 된다.
+    useEffect(sayHello, [number]);
+    return (
+    <div className="App">
+      <button onClick={() => setNumber(number + 1)}>{number}</button>
+    </div>
+    );
+}
+```
+
 ## 1. useTitle
 react document의 title을 몇개의 hooks과 함께 바꾸는것
+head의 있는 title태그를 useEffect, useState를 사용해서 바꾼다.
+
+```js
+const useTitle = (initial) => {
+  const [title, setTitle] = useState(initial);
+  const update = () => {
+    const HTML = document.querySelector("title");
+    HTML.innerText = title;
+  };
+  useEffect(update, [title]);
+  return setTitle;
+};
+
+export default function App() {
+  const titleChange = useTitle("hihi!");
+  setTimeout(() => titleChange("hihi2"), 3000);
+  return (
+    <div className="App">
+      <h1>hi</h1>
+    </div>
+  );
+}
+```
 
 ## 2. useInput
 input 역할을 하는 훅 (state나 effect처럼 만들어져 있는 훅이라기 보다는 useState를 이용해서 만들어낸 함수 로직 인것같다. **맞았다..**)
