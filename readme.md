@@ -70,6 +70,32 @@ export default function App() {
 }
 ```
 
+## useEffect return
+```js
+useEffect(()=>{
+    const target = useRef();
+    target.current.addEventListener('click',f);
+    
+    //useEffect안에서 함수를 반환하면 unMount때 실행한다.
+    //그리하여 이벤트 리스너를 제거해준다.
+    return target.current.removeEventListener('click',f); 
+});
+```
+
+# useRef (2023.1.12)
+useRef는 document.getElementById() 와 같이 돔 오브젝트를 셀렉해주는 역할을 한다.
+```js
+const getId = useRef();
+console.log(getId); // object{current}
+console.log(getId.current); // <div></div>
+
+const App = () =>{
+    return (
+        <div ref={getId}></div>
+    )
+}
+```
+
 ## 1. useTitle
 react document의 title을 몇개의 hooks과 함께 바꾸는것
 head의 있는 title태그를 useEffect, useState를 사용해서 바꾼다.
