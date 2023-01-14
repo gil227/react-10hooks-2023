@@ -2,6 +2,8 @@
 리액트 훅을 사용하는 것은 함수형프로그래밍(functional programing)을 하는 것이다.
 그리고 훅을 사용하지 않았을때 상태를 컨트롤 하려면 코드가 많이 길었다.
 
+useState,useEffect,useRef 외 나머지는 앞의 세개를 사용해서 함수형프로그래밍을 작성하는 방법을 배운다.(이것이... 디자인패턴?)
+
 ```js
 //hook X
 class App extends Component {
@@ -146,8 +148,8 @@ export default function App() {
 
 ```
 
-## 3. usePageLeave
-유저가 페이지를 벗어나는 시점을 찾고 함수를 실행하는 훅
+## 3. useBeforeLeave
+유저가 페이지를 벗어나는 시점을 찾고 함수를 실행하는 훅, 강의에서는 cilentY가 0 이하일때 함수가 실행하도록 만들었다.
 
 ## 4. useClick
 element를 클릭시점을 찾아내는 hook
@@ -162,7 +164,31 @@ element를 풀스크린으로 만들거나 일반 화면으로 돌아가게 할 
 마우스를 올렸을때를 찾아내는 hook
 
 ## 8. useNetwork
-온라인과 오프라인 상태를 감지하는 hook
+네트워크의 온라인과 오프라인 상태를 감지하는 hook
+```js
+const useNetwork = (onChange) => {
+  const [state, setState] = useState(navigator.onLine);
+  const networkState = () => {
+    //온,오프라인에서 함수를 실행 시키고 싶을때 사용한다.
+    //필요없다면 안써도 무방.
+    if (typeof onChange === "function") {
+      onChange(navigator.onLine);
+    }
+    setState(navigator.onLine);
+  };
+  useEffect(() => {
+    window.addEventListener("online", networkState);
+    window.addEventListener("offline", networkState);
+
+    return () => {
+      window.removeEventListener("online", networkState);
+      window.removeEventListener("offline", networkState);
+    };
+  }, []);
+
+  return state;
+};
+```
 
 ## 9. useNotification
 notification API를 사용시 유저에게 알림을 보내주는 hook
@@ -187,6 +213,7 @@ const useTabs = (initalIndex, allTabs) => {
 
 ## 12. usePreventLeave
 변경사항을 저장하지 않고 페이지(브라우저)를 벗어나길 원할때 확인(confirm) 하는 hook
+브라우저를 떠날때(닫을때 혹은 새로고침할때)
 
 ## 13. useConfirm
 이벤트를 실행하기 전에 사용자에게 확인을 받는 기능을 하는 hook
