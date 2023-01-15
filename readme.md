@@ -148,7 +148,7 @@ export default function App() {
 
 ```
 
-## 3. useBeforeLeave
+## 3. useBeforeLeave (2023.1.14)
 유저가 페이지를 벗어나는 시점을 찾고 함수를 실행하는 훅, 강의에서는 cilentY가 0 이하일때 함수가 실행하도록 만들었다.
 
 ## 4. useClick
@@ -163,7 +163,7 @@ element를 풀스크린으로 만들거나 일반 화면으로 돌아가게 할 
 ## 7. useHover
 마우스를 올렸을때를 찾아내는 hook
 
-## 8. useNetwork
+## 8. useNetwork (2023.1.14)
 네트워크의 온라인과 오프라인 상태를 감지하는 hook
 ```js
 const useNetwork = (onChange) => {
@@ -190,10 +190,11 @@ const useNetwork = (onChange) => {
 };
 ```
 
-## 9. useNotification
+## 9. useNotification (2023.1.15)
 notification API를 사용시 유저에게 알림을 보내주는 hook
+(맥 기준으로 설명하면 오른쪽 위에 배너 알림을 띄워주는 것이다.)
 
-## 10. useScroll
+## 10. useScroll (2023.1.15)
 스크롤을 감지하는 hook
 
 ## 11. useTabs
@@ -211,11 +212,11 @@ const useTabs = (initalIndex, allTabs) => {
 };
 ```
 
-## 12. usePreventLeave
+## 12. usePreventLeave (2023.1.14)
 변경사항을 저장하지 않고 페이지(브라우저)를 벗어나길 원할때 확인(confirm) 하는 hook
 브라우저를 떠날때(닫을때 혹은 새로고침할때)
 
-## 13. useConfirm
+## 13. useConfirm (2023.1.14)
 이벤트를 실행하기 전에 사용자에게 확인을 받는 기능을 하는 hook
 
 ## 14. useAxios
